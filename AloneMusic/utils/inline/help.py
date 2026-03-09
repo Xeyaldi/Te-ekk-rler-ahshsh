@@ -74,7 +74,7 @@ def private_help_panel(_):
         [
             InlineKeyboardButton(
                 text="✚ ᴋᴀʏɴᴀᴋ ᴋᴏᴅᴜ ✚",
-                url="https://www.youtube.com/@EpikTv87"
+                url="https://github.com/KumsalTR63/KumsalMeldi"
             ),
         ],
     ]
