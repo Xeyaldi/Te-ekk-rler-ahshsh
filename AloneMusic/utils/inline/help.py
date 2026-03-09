@@ -50,7 +50,7 @@ def help_pannel(_, START: Union[bool, int] = None):
             [
                 InlineKeyboardButton(
                     text="✚ ᴋᴀʏɴᴀᴋ ᴋᴏᴅᴜ",
-                    url="https://www.youtube.com/@EpikTv87"
+                    url="https://github.com/KumsalTR63/KumsalMeldi"
                 ),
             ],
             mark,
