@@ -99,7 +99,7 @@ queue_6 : "<b>🕚 Süre:</b> Yayın süresi bilinmiyor\n\nSıranın tamamı iç
 queue_7 : "\nBekleme listesinin tamamı için aşağıdaki düğmeyi tıklayın."
 queue_8 : "<b>Oyuncu {0}</b>\n\n🎄 <b>Şu anda yayınlanıyor:</b> {1}\n\n🔗 <b>Yayın Türü :</b> {2}\n 🥀 <b>İsteyen:</b> {3}\n{4}"
 
-stream_1 : "🪩 ⍣⃪‌ 𝑌𝐴𝑌𝐼𝑁 𝐵𝐴𝑆𝐿𝐴𝐷𝐼 ❛𝆺𝅥𓆪ꪾ™ |</b>\n\n<b>‣ ʙᴀșʟɪᴋ:</b> <a href={0}>{1}</a>\n<b>‣ sᴜʀᴇ:</b> {2} ᴅᴀᴋɪᴋᴀ\n<b>‣ ᴛᴀʟᴇᴘ ᴇᴅᴇɴ:</b> {3}"
+stream_1 : "🪩 ⍣⃪‌ 𝙔𝘼𝙔𝙄𝙉 𝘽𝘼𝙎𝙇𝘼𝘿𝙄 ❛𝆺𝅥𓆪ꪾ™ |</b>\n\n<b>‣ ʙᴀșʟɪᴋ:</b> <a href={0}>{1}</a>\n<b>‣ sᴜʀᴇ:</b> {2} ᴅᴀᴋɪᴋᴀ\n<b>‣ ᴛᴀʟᴇᴘ ᴇᴅᴇɴ:</b> {3}"
 stream_2 : "➲ <b>Yayını başlat |</b>\n\n<b>‣ Yayın türü:</b>Canlı yayın [bağlantı]\n<b>‣ Talep eden:</b> {0}"
 
 help_1 : "<b> Yardım istediğiniz kategoriyi seçin.</b>\n\n<a href={0}>Destek Sohbeti</a><b>'nden şikâyetiniz hakkında bilgi alın .</b>\n\n<b>Tüm komutlar şununla kullanılabilir: /</b>"
