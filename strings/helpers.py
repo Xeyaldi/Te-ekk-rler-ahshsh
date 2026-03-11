@@ -162,3 +162,107 @@ HELP_9 = """
 <b>/ayarlar</b>  
 » Grup ayarlarını gösterir
 """
+
+HELP_10 = """
+<b>🏷 𝗘𝗧𝗜𝗞𝗘𝗧 𝗠𝗢𝗗𝗨̈𝗟𝗨̈</b>
+<blockquote>𝙂𝙧𝙪𝙥𝙩𝙖𝙠𝙞 𝙩𝙪̈𝙢 𝙠𝙪𝙡𝙡𝙖𝙣𝙞𝙘𝙞𝙡𝙖𝙧𝙞 𝙠𝙤𝙡𝙖𝙮𝙘𝙖 𝙚𝙩𝙞𝙠𝙚𝙩𝙡𝙚𝙢𝙚𝙠 𝙞𝙘̧𝙞𝙣 𝙠𝙪𝙡𝙡𝙖𝙣𝙞𝙡𝙞𝙧.</blockquote>
+
+<b>👥 /tag</b>  
+» Gruptaki tüm üyeleri etiketler.
+
+<b>👤 /utag</b>  
+» Sadece aktif kullanıcıları etiketler.
+
+<b>⛔ /cancel</b>  
+» Devam eden etiketleme işlemini durdurur.
+"""
+
+HELP_11 = """
+<b>💞 𝗔𝗦̧𝗞 𝗞𝗨𝗦̧𝗟𝗔𝗥𝗜 𝗠𝗢𝗗𝗨̈𝗟𝗨̈</b>
+<blockquote>𝙂𝙧𝙪𝙥𝙩𝙖 𝙚𝙜̆𝙡𝙚𝙣𝙘𝙚𝙡𝙞 𝙖𝙨̧𝙠 𝙤𝙮𝙪𝙣𝙡𝙖𝙧𝙞, 𝙝𝙚𝙙𝙞𝙮𝙚 𝙜𝙤̈𝙣𝙙𝙚𝙧𝙢𝙚 𝙫𝙚 𝙧𝙤𝙢𝙖𝙣𝙩𝙞𝙠 𝙝𝙞𝙠𝙖𝙮𝙚𝙡𝙚𝙧 𝙪̈𝙧𝙚𝙩𝙢𝙚 𝙨𝙞𝙨𝙩𝙚𝙢𝙞.</blockquote>
+
+<b>💰 /bakiye</b> veya <b>/bal</b>  
+» Coin bakiyeni ve hediye istatistiklerini gösterir.
+
+<b>🎁 /hediyeler</b>  
+» Gönderebileceğin tüm hediyeleri ve fiyatlarını gösterir.
+
+<b>💌 /hediyegonder @kullanici emoji</b>  
+» Bir kullanıcıya sanal hediye gönderir.  
+Örnek: <code>/hediyegonder @ali 🌹</code>
+
+<b>📦 /hediyem</b> veya <b>/aldiklarim</b>  
+» Sana gönderilen hediyeleri gösterir.
+
+<b>📖 /hikaye isim1 isim2</b>  
+» İki isim için romantik bir aşk hikayesi oluşturur.  
+Örnek: <code>/hikaye Ali Ayşe</code>
+
+<b>🏆 /liderlik</b> veya <b>/zirve</b>  
+» En zengin 10 kullanıcıyı gösterir.
+
+<b>💡 İpucu</b>  
+» Sohbette aktif oldukça coin kazanırsın ve daha fazla hediye gönderebilirsin 💕
+"""
+
+
+HELP_13 = """
+<b>🎮 𝗢𝗬𝗨𝗡 & 𝗘𝗚̆𝗟𝗘𝗡𝗖𝗘 𝗠𝗢𝗗𝗨̈𝗟𝗨̈</b>
+<blockquote>𝙂𝙧𝙪𝙥𝙩𝙖 𝙚𝙜̆𝙡𝙚𝙣𝙘𝙚𝙡𝙞 𝙤𝙮𝙪𝙣𝙡𝙖𝙧, 𝙨̧𝙖𝙠𝙖𝙡𝙖𝙧 𝙫𝙚 𝙧𝙖𝙨𝙩𝙜𝙚𝙡𝙚 𝙚𝙜̆𝙡𝙚𝙣𝙘𝙚 𝙠𝙤𝙢𝙪𝙩𝙡𝙖𝙧𝙞.</blockquote>
+
+<b>🎲 /zar</b>  
+» Zar atar.
+
+<b>🎯 /dart</b>  
+» Dart oyunu oynar.
+
+<b>🏀 /basket</b>  
+» Basket atışı yapar.
+
+<b>⚽ /futbol</b>  
+» Futbol şutu çeker.
+
+<b>🎳 /bowling</b>  
+» Bowling atışı yapar.
+
+<b>🎰 /slot</b>  
+» Slot makinesi oynatır.
+
+<b>🪙 /para</b>  
+» Yazı mı tura mı olduğunu gösterir.
+
+<b>📝 /mani</b>  
+» Rastgele bir mani söyler.
+
+<b>😂 /saka</b>  
+» Rastgele bir şaka yapar.
+
+<b>👋 /sille</b> veya <b>/slap</b>  
+» Bir kullanıcıya cevap vererek sille atarsın.
+
+<b>🎵 /oner</b>  
+» Bir kullanıcıya cevap vererek şarkı önerir.
+"""
+
+HELP_12 = """
+<b>🔮 𝗙𝗔𝗟 & 𝗥𝗨̈𝗬𝗔 𝗠𝗢𝗗𝗨̈𝗟𝗨̈</b>
+<blockquote>𝙍𝙪̈𝙮𝙖 𝙮𝙤𝙧𝙪𝙢𝙡𝙖𝙧𝙞, 𝙛𝙖𝙡, 𝙗𝙪𝙧𝙘̧ 𝙮𝙤𝙧𝙪𝙢𝙪 𝙫𝙚 𝙩𝙖𝙧𝙤𝙩 𝙠𝙖𝙧𝙩𝙡𝙖𝙧𝙞 𝙞𝙡𝙚 𝙚𝙜̆𝙡𝙚𝙣𝙘𝙚𝙡𝙞 𝙮𝙤𝙧𝙪𝙢𝙡𝙖𝙧.</blockquote>
+
+<b>🌙 /ruya</b>  
+» Yazdığın rüyayı analiz eder ve sembolleri yorumlar.  
+Örnek: <code>/ruya rüyamda yılan gördüm</code>
+
+<b>🔮 /fal</b>  
+» Rastgele bir fal yorumu verir.
+
+<b>♈ /burc burcadi</b>  
+» Burcuna özel günlük yorum verir.  
+Örnek: <code>/burc aslan</code>
+
+<b>❤️ /askuyumu burc1 burc2</b>  
+» İki burcun aşk uyumunu hesaplar.  
+Örnek: <code>/askuyumu koç akrep</code>
+
+<b>🃏 /tarot</b>  
+» Rastgele bir tarot kartı seçer ve yorumunu gösterir.
+"""
