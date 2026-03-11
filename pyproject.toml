@@ -39,7 +39,7 @@ dependencies = [
   "dnspython>=2.6.1",
   "gitpython>=3.1.43",
   "hachoir>=3.2.0",
-  "httpx>=0.27.0",
+  "httpx[http2]",
   "humanize>=4.9.0",
   "requests>=2.32.3",
   "python-dotenv>=1.0.1",
@@ -55,13 +55,22 @@ dependencies = [
   "heroku3>=5.2.1",
   "Pillow==12.1.1",
   "speedtest-cli>=2.1.3",
-  "yt-dlp>=2024.8.6",
+  "yt-dlp[default]>=2025.12.8",
   "youtube-search>=2.1.2",
   "youtube-search-python>=1.6.6",
   "py-yt-search==0.5.7",
   "spotipy>=2.24.0",
   "prettytable>=3.12.0",
-  "openai>=1.40.0"
+  "openai>=1.40.0",
+
+  # Yeni eklenen bağımlılıklar (Eksik olanlar)
+  "bing-image-downloader",  # Bing resim indirme
+  "SafoneAPI",              # SafoneAPI desteği
+  "googlesearch-python",    # Google arama kütüphanesi
+  "uvloop",                 # Asenkron I/O event loop
+  "gtts",                   # Google Text-to-Speech (Metinden sese dönüştürme)
+  "numpy",                  # Sayısal işlemler için
+  "pykeyboard",             # Klavye kontrolü için
 ]
 
 [tool.setuptools.packages.find]
