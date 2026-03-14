@@ -1,11 +1,6 @@
 #
-# Copyright (C) 2021-2022 by TheAloneteam@Github, < https://github.com/TheAloneTeam >.
+# Yenidən dizayn edilmiş İinline Search modulu.
 #
-# This file is part of < https://github.com/TheAloneTeam/AloneMusic > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TheAloneTeam/AloneMusic/blob/master/LICENSE >
-#
-# All rights reserved.
 
 from py_yt import VideosSearch
 from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,
@@ -37,27 +32,32 @@ async def inline_query_handler(client, query):
             channel = result[x]["channel"]["name"]
             link = result[x]["link"]
             published = result[x]["publishedTime"]
-            description = f"{views} | {duration} ᴍɪɴᴜᴛᴇs | {channel}  | {published}"
+            
+            # Təsvir hissəsini daha səliqəli etdim
+            description = f"👁️ {views} | ⏱️ {duration} dəq | 📺 {channel}"
+            
             buttons = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="ʏᴏᴜᴛᴜʙᴇ 🎄",
+                            text="🌐 ʏᴏᴜᴛᴜʙᴇ-ᴅᴀ ɪ̇ᴢʟə",
                             url=link,
                         )
                     ],
                 ]
             )
+            
+            # Mətni tamamilə fərqli bir dizayna saldım
             searched_text = f"""
-❄ <b>ᴛɪᴛʟᴇ :</b> <a href={link}>{title}</a>
+🎬 <b>ʙᴀşʟɪǫ:</b> <a href={link}>{title}</a>
 
-⏳ <b>ᴅᴜʀᴀᴛɪᴏɴ :</b> {duration} ᴍɪɴᴜᴛᴇs
-👀 <b>ᴠɪᴇᴡs :</b> <code>{views}</code>
-🎥 <b>ᴄʜᴀɴɴᴇʟ :</b> <a href={channellink}>{channel}</a>
-⏰ <b>ᴘᴜʙʟɪsʜᴇᴅ ᴏɴ :</b> {published}
+⏳ <b>ᴍᴜ̈ᴅᴅəᴛ:</b> {duration} ᴅəǫɪǫə
+📊 <b>ʙᴀxɪş:</b> <code>{views}</code>
+📡 <b>ᴋᴀɴᴀʟ:</b> <a href={channellink}>{channel}</a>
+📅 <b>ʏᴀʏɪᴍ:</b> {published}
 
+✨ <b>{app.name} ɪ̇ɴʟɪɴᴇ ᴀxᴛᴀʀɪş sɪsᴛᴇᴍɪ</b>"""
 
-<u><b>➻ ɪɴʟɪɴᴇ sᴇᴀʀᴄʜ ᴍᴏᴅᴇ ʙʏ {app.name}</b></u>"""
             answers.append(
                 InlineQueryResultPhoto(
                     photo_url=thumbnail,
