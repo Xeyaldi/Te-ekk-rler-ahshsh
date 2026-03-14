@@ -1,11 +1,6 @@
-##
-# Copyright (C) 2021-2022 by TheAloneteam@Github, < https://github.com/TheAloneTeam >.
 #
-# This file is part of < https://github.com/TheAloneTeam/AloneMusic > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TheAloneTeam/AloneMusic/blob/master/LICENSE >
+# Yenidən dizayn edilmiş Admin və Axın İdarəetmə Modulu.
 #
-# All rights reserved.
 
 import asyncio
 
@@ -49,6 +44,8 @@ async def del_back_playlist(client, CallbackQuery, _):
     if not await is_active_chat(chat_id):
         return await CallbackQuery.answer(_["general_5"], show_alert=True)
     mention = CallbackQuery.from_user.mention
+    
+    # Səsvermə (UpVote) Sistemi
     if command == "UpVote":
         if chat_id not in votemode:
             votemode[chat_id] = {}
@@ -81,7 +78,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 exists = confirmer[chat_id][CallbackQuery.message.id]
                 current = db[chat_id][0]
             except:
-                return await CallbackQuery.edit_message_text("ғᴀɪʟᴇᴅ.")
+                return await CallbackQuery.edit_message_text("⚡ əməʟɪʏʏᴀᴛ ʙᴀş ᴛᴜᴛᴍᴀᴅɪ.")
             try:
                 if current["vidid"] != exists["vidid"]:
                     return await CallbackQuery.edit_message.text(_["admin_35"])
@@ -94,7 +91,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 pass
             command = counter
-            mention = "ᴜᴘᴠᴏᴛᴇs"
+            mention = "🗳️ səsᴠᴇʀᴍə ᴛəsᴅɪǫʟəɴᴅɪ"
         else:
             if (
                 CallbackQuery.from_user.id
@@ -107,7 +104,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 [
                     [
                         InlineKeyboardButton(
-                            text=f"👍 {get_upvotes}",
+                            text=f"✅ {get_upvotes}",
                             callback_data=f"ADMIN  UpVote|{chat_id}_{counter}",
                         )
                     ]
@@ -127,6 +124,8 @@ async def del_back_playlist(client, CallbackQuery, _):
                         return await CallbackQuery.answer(
                             _["admin_14"], show_alert=True
                         )
+    
+    # İdarəetmə Düymələri
     if command == "Pause":
         if not await is_music_playing(chat_id):
             return await CallbackQuery.answer(_["admin_1"], show_alert=True)
@@ -156,16 +155,15 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            # Dizayn yeniləndi
+            txt = f"⏭️ ʏᴀʏɪᴍ öᴛᴜ̈ʀᴜ̈ʟᴅᴜ̈\n\n👤 ɪ̇sᴛəʏəɴ: {mention}"
             popped = None
             try:
                 popped = check.pop(0)
                 if popped:
                     await auto_clean(popped)
                 if not check:
-                    await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
-                    )
+                    await CallbackQuery.edit_message_text(txt)
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
                             mention, CallbackQuery.message.chat.title
@@ -178,9 +176,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                         return
             except:
                 try:
-                    await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
-                    )
+                    await CallbackQuery.edit_message_text(txt)
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
                             mention, CallbackQuery.message.chat.title
@@ -191,7 +187,8 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"🔄 ʏᴀʏɪᴍ ʏᴇɴɪᴅəɴ ʙᴀşʟᴀᴅɪ\n\n👤 ɪ̇sᴛəʏəɴ: {mention}"
+        
         await CallbackQuery.answer()
         queued = check[0]["file"]
         title = (check[0]["title"]).title()
@@ -207,6 +204,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             db[chat_id][0]["seconds"] = check[0]["old_second"]
             db[chat_id][0]["speed_path"] = None
             db[chat_id][0]["speed"] = 1.0
+            
+        # YouTube Canlı Yayım
         if "live_" in queued:
             n, link = await YouTube.video(videoid, True)
             if n == 0:
@@ -238,6 +237,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
             await CallbackQuery.edit_message_text(txt, reply_markup=close_markup(_))
+            
+        # Video Faylı
         elif "vid_" in queued:
             mystic = await CallbackQuery.message.reply_text(
                 _["call_7"], disable_web_page_preview=True
@@ -276,21 +277,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             db[chat_id][0]["markup"] = "stream"
             await CallbackQuery.edit_message_text(txt, reply_markup=close_markup(_))
             await mystic.delete()
-        elif "index_" in queued:
-            try:
-                await Alone.skip_stream(chat_id, videoid, video=status)
-            except:
-                return await CallbackQuery.message.reply_text(_["call_6"])
-            button = stream_markup(_, chat_id)
-            run = await CallbackQuery.message.reply_photo(
-                photo=STREAM_IMG_URL,
-                has_spoiler=True,
-                caption=_["stream_2"].format(user),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
-            db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
-            await CallbackQuery.edit_message_text(txt, reply_markup=close_markup(_))
+            
+        # Digər Media Tipləri
         else:
             if videoid == "telegram":
                 image = None
@@ -305,6 +293,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 await Alone.skip_stream(chat_id, queued, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
+                
             if videoid == "telegram":
                 button = stream_markup(_, chat_id)
                 run = await CallbackQuery.message.reply_photo(
@@ -353,7 +342,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 db[chat_id][0]["markup"] = "stream"
             await CallbackQuery.edit_message_text(txt, reply_markup=close_markup(_))
 
-
+# Zamanlayıcı (Timer) sistemi
 async def markup_timer():
     while not await asyncio.sleep(7):
         active_chats = await get_active_chats()
@@ -381,7 +370,7 @@ async def markup_timer():
                     language = await get_lang(chat_id)
                     _ = get_string(language)
                 except:
-                    _ = get_string("en")
+                    _ = get_string("az")
                 try:
                     buttons = stream_markup_timer(
                         _,
@@ -396,6 +385,5 @@ async def markup_timer():
                     continue
             except:
                 continue
-
 
 asyncio.create_task(markup_timer())
