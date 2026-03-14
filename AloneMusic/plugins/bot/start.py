@@ -1,10 +1,7 @@
 #
-# Copyright (C) 2021-2022 by TheAloneteam@Github, < https://github.com/TheAloneTeam >.
-# This file is part of < https://github.com/TheAloneTeam/AloneMusic > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TheAloneTeam/AloneMusic/blob/master/LICENSE >
+# Bu fayl yenidən dizayn edilmişdir.
+# Copyright (C) 2024-2025.
 #
-# All rights reserved.
 
 import random
 import time
@@ -27,6 +24,7 @@ from AloneMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
+# Mesaj effektləri (istəyə görə dəyişdirilə bilər)
 EFFECT_ID = [
     5046509860389126442,
     5107584321108051014,
@@ -39,9 +37,13 @@ EFFECT_ID = [
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
-    await message.react("🍓")
+    # Reaksiya emojisini dəyişdim
+    await message.react("✨")
+    
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
+        
+        # Kömək bölməsi
         if name[0:4] == "help":
             keyboard = help_pannel(_)
             return await message.reply_photo(
@@ -50,16 +52,20 @@ async def start_pm(client, message: Message, _):
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
+            
+        # Sudo siyahısı yoxlanışı
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"👤 {message.from_user.mention} ʙᴏᴛᴜ <b>sᴜᴅᴏ sɪʏᴀʜɪsɪ</b> ᴜ̈çᴜ̈ɴ ʙᴀşʟᴀᴛᴅɪ.\n\n🆔 <b>ɪᴅ :</b> <code>{message.from_user.id}</code>\n🔗 <b>ᴜsᴇʀ :</b> @{message.from_user.username}",
                 )
             return
+            
+        # Mahnı məlumatı yoxlanışı
         if name[0:3] == "inf":
-            m = await message.reply_text("🔎")
+            m = await message.reply_text("ᴀxᴅᴀʀıʟıʀ ...")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
             results = VideosSearch(query, limit=1)
@@ -72,6 +78,7 @@ async def start_pm(client, message: Message, _):
                 channel = result["channel"]["name"]
                 link = result["link"]
                 published = result["publishedTime"]
+            
             searched_text = _["start_6"].format(
                 title, duration, views, published, channellink, channel, app.mention
             )
@@ -94,9 +101,10 @@ async def start_pm(client, message: Message, _):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"🎧 {message.from_user.mention} ʙᴏᴛᴜ <b>ᴍᴀʜɴɪ ᴍəʟᴜᴍᴀᴛɪ</b> ᴜ̈çᴜ̈ɴ ʙᴀşʟᴀᴛᴅɪ.\n\n🆔 <b>ɪᴅ :</b> <code>{message.from_user.id}</code>\n🔗 <b>ᴜsᴇʀ :</b> @{message.from_user.username}",
                 )
     else:
+        # Normal Start mesajı
         out = private_panel(_)
         await message.reply_photo(
             photo=config.START_IMG_URL,
@@ -108,7 +116,7 @@ async def start_pm(client, message: Message, _):
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
-                text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                text=f"🚀 {message.from_user.mention} ʙᴏᴛᴜ ʙᴀşʟᴀᴛᴅɪ.\n\n🆔 <b>ɪᴅ :</b> <code>{message.from_user.id}</code>\n🔗 <b>ᴜsᴇʀ :</b> @{message.from_user.username}",
             )
 
 
@@ -132,15 +140,21 @@ async def welcome(client, message: Message):
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
+            
+            # Banlı istifadəçi girişi
             if await is_banned_user(member.id):
                 try:
                     await message.chat.ban_member(member.id)
                 except:
                     pass
+            
+            # Botun qrupa girişi
             if member.id == app.id:
                 if message.chat.type != ChatType.SUPERGROUP:
                     await message.reply_text(_["start_4"])
                     return await app.leave_chat(message.chat.id)
+                
+                # Qara siyahıdakı qrup
                 if message.chat.id in await blacklisted_chats():
                     await message.reply_text(
                         _["start_5"].format(
@@ -152,6 +166,7 @@ async def welcome(client, message: Message):
                     )
                     return await app.leave_chat(message.chat.id)
 
+                # Qrupa xoş gəldin mesajı
                 out = start_panel(_)
                 await message.reply_photo(
                     photo=config.START_IMG_URL,
@@ -167,4 +182,4 @@ async def welcome(client, message: Message):
                 await add_served_chat(message.chat.id)
                 await message.stop_propagation()
         except Exception as ex:
-            print(ex)
+            print(f"Xəta yarandı: {ex}")
