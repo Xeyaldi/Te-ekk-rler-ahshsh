@@ -3,23 +3,23 @@ import random
 from datetime import datetime, timedelta
 from pyrogram import filters
 from pyrogram.types import Message
-from AloneMusic import app  # Assuming this is the bot's app instance
-from AloneMusic.core.mongo import mongodb   # ✅ MongoDB connection
+from AloneMusic import app  # Botun app instansiyası
+from AloneMusic.core.mongo import mongodb   # ✅ MongoDB bağlantısı
 
-db = mongodb.games  # Accessing the 'games' collection from MongoDB
-initial_balance = 25000  # Initial balance for users
+db = mongodb.games  # MongoDB-də 'games' kolleksiyasına giriş
+initial_balance = 25000  # İstifadəçilər üçün ilkin balans
 
-# 🔹 Retrieve user balance
+# 🔹 İstifadəçi balansını əldə et
 async def get_balance(user_id: int) -> int:
     user = await db.find_one({"_id": user_id})
     if user:
         return user.get("balance", initial_balance)
     return initial_balance
 
-# 🔹 Update user balance
+# 🔹 İstifadəçi balansını yenilə
 async def update_balance(user_id: int, amount: int):
     current_balance = await get_balance(user_id)
-    new_balance = max(current_balance + amount, 0)  # Prevent negative balance
+    new_balance = max(current_balance + amount, 0)  # Balansın mənfi olmasının qarşısını al
     await db.update_one(
         {"_id": user_id},
         {"$set": {"balance": new_balance}},
@@ -27,12 +27,12 @@ async def update_balance(user_id: int, amount: int):
     )
     return new_balance
 
-# 🎰 Slot game
+# 🎰 Slot oyunu
 @app.on_message(filters.command("cash") & filters.group)
 async def play_slot(_, message: Message):
     user_id = message.from_user.id
     if len(message.command) < 2:
-        return await message.reply("Kullanım: /cash [miktar] [opsiyonel çarpan] 🎰")
+        return await message.reply("İstifadə qaydası: /cash [məbləğ] [istəyə bağlı vuran] 🎰")
 
     try:
         amount = int(message.command[1])
@@ -40,28 +40,31 @@ async def play_slot(_, message: Message):
         if len(message.command) > 2 and message.command[2].endswith("x"):
             multiplier = int(message.command[2][:-1])
             if multiplier < 1 or multiplier > 6:
-                return await message.reply("Çarpan 1x ile 6x arası olmalı.")
+                return await message.reply("Vuran (multiplier) 1x ilə 6x arası olmalıdır.")
     except:
-        return await message.reply("Geçerli bir miktar giriniz. Örnek: /cash 50 2x")
+        return await message.reply("Düzgün bir məbləğ daxil edin. Nümunə: /cash 50 2x")
 
     balance = await get_balance(user_id)
     if amount > balance:
-        return await message.reply("Bakiyeniz yetersiz. 😢")
+        return await message.reply("Balansınız kifayət deyil. 😢")
 
+    # Uduş şansı 50/50
     win_amount = amount * multiplier if random.random() < 0.5 else -amount * multiplier
     new_balance = await update_balance(user_id, win_amount)
-    result = "kazandınız 🎉" if win_amount > 0 else "kaybettiniz 🥹"
-
+    
+    # Azərbaycan adları ilə nəticə mesajı
+    result = "qazandınız 🎉" if win_amount > 0 else "itirdiniz 🥹"
+    
     await message.reply(
-        f"{win_amount} TL {result}!\n💰 Güncel bakiyeniz: {new_balance} TL"
+        f"{win_amount} AZN {result}!\n💰 Cari balansınız: {new_balance} AZN"
     )
 
-# 🏀 Basketball game
+# 🏀 Basketbol oyunu
 @app.on_message(filters.command("bcash") & filters.group)
 async def play_basket(_, message: Message):
     user_id = message.from_user.id
     if len(message.command) < 2:
-        return await message.reply("Kullanım: /bcash [miktar] [opsiyonel çarpan] 🏀")
+        return await message.reply("İstifadə qaydası: /bcash [məbləğ] [istəyə bağlı vuran] 🏀")
 
     try:
         amount = int(message.command[1])
@@ -69,33 +72,33 @@ async def play_basket(_, message: Message):
         if len(message.command) > 2 and message.command[2].endswith("x"):
             multiplier = int(message.command[2][:-1])
             if multiplier < 1 or multiplier > 6:
-                return await message.reply("Çarpan 1x ile 6x arası olmalı.")
+                return await message.reply("Vuran 1x ilə 6x arası olmalıdır.")
     except:
-        return await message.reply("Geçerli bir miktar giriniz.")
+        return await message.reply("Düzgün bir məbləğ daxil edin.")
 
     balance = await get_balance(user_id)
     if amount > balance:
-        return await message.reply("Bakiyeniz yetersiz.")
+        return await message.reply("Balansınız kifayət deyil.")
 
     dice = await app.send_dice(message.chat.id, emoji="🏀")
     await asyncio.sleep(3)
 
     if dice.dice.value >= 4:
         win_amount = amount * multiplier
-        text = f"🏀 Tebrikler! Potaya girdi. +{win_amount} TL"
+        text = f"🏀 Təbriklər! Səbətə girdi. +{win_amount} AZN"
     else:
         win_amount = -amount * multiplier
-        text = f"🏀 Üzgünüm, kaçırdınız. {amount * multiplier} TL kaybettiniz."
+        text = f"🏀 Təəssüf, qaçırtdınız. {amount * multiplier} AZN itirdiniz."
 
     new_balance = await update_balance(user_id, win_amount)
-    await message.reply(f"{text}\n💰 Güncel bakiyeniz: {new_balance} TL")
+    await message.reply(f"{text}\n💰 Cari balansınız: {new_balance} AZN")
 
-# ⚽ Football game
+# ⚽ Futbol oyunu
 @app.on_message(filters.command("fcash") & filters.group)
 async def play_football(_, message: Message):
     user_id = message.from_user.id
     if len(message.command) < 2:
-        return await message.reply("Kullanım: /fcash [miktar] [opsiyonel çarpan] ⚽")
+        return await message.reply("İstifadə qaydası: /fcash [məbləğ] [istəyə bağlı vuran] ⚽")
 
     try:
         amount = int(message.command[1])
@@ -103,35 +106,35 @@ async def play_football(_, message: Message):
         if len(message.command) > 2 and message.command[2].endswith("x"):
             multiplier = int(message.command[2][:-1])
             if multiplier < 1 or multiplier > 6:
-                return await message.reply("Çarpan 1x ile 6x arası olmalı.")
+                return await message.reply("Vuran 1x ilə 6x arası olmalıdır.")
     except:
-        return await message.reply("Geçerli bir miktar giriniz.")
+        return await message.reply("Düzgün bir məbləğ daxil edin.")
 
     balance = await get_balance(user_id)
     if amount > balance:
-        return await message.reply("Bakiyeniz yetersiz.")
+        return await message.reply("Balansınız kifayət deyil.")
 
     dice = await app.send_dice(message.chat.id, emoji="⚽")
     await asyncio.sleep(3)
 
     if dice.dice.value >= 3:
         win_amount = amount * multiplier
-        text = f"⚽ Gooool! +{win_amount} TL"
+        text = f"⚽ Qooool! +{win_amount} AZN"
     else:
         win_amount = -amount * multiplier
-        text = f"⚽ Kaçırdınız. {amount * multiplier} TL kaybettiniz."
+        text = f"⚽ Qaçırdınız. {amount * multiplier} AZN itirdiniz."
 
     new_balance = await update_balance(user_id, win_amount)
-    await message.reply(f"{text}\n💰 Güncel bakiyeniz: {new_balance} TL")
+    await message.reply(f"{text}\n💰 Cari balansınız: {new_balance} AZN")
 
-# 💰 Check balance
+# 💰 Balansı yoxla
 @app.on_message(filters.command("bakiye"))
 async def check_balance(_, message: Message):
     user_id = message.from_user.id
     balance = await get_balance(user_id)
-    await message.reply(f"Güncel bakiyeniz: {balance} TL 💰")
+    await message.reply(f"Cari balansınız: {balance} AZN 💰")
 
-# 🎁 Daily bonus
+# 🎁 Gündəlik bonus
 @app.on_message(filters.command(["gunluk", "günlük"]))
 async def daily_bonus(_, message: Message):
     user_id = message.from_user.id
@@ -141,7 +144,7 @@ async def daily_bonus(_, message: Message):
     last_bonus = user.get("last_bonus") if user else None
 
     if last_bonus and now - last_bonus < timedelta(hours=5):
-        return await message.reply("Günlük bonus için biraz daha bekle ⏳")
+        return await message.reply("Gündəlik bonus üçün bir az daha gözlə ⏳")
 
     await db.update_one(
         {"_id": user_id},
@@ -150,24 +153,29 @@ async def daily_bonus(_, message: Message):
     )
 
     balance = await get_balance(user_id)
-    await message.reply(f"🎁 Günlük bonus aldınız: 50.000 TL\n💰 Güncel bakiyeniz: {balance} TL")
+    await message.reply(f"🎁 Gündəlik bonus aldınız: 50.000 AZN\n💰 Cari balansınız: {balance} AZN")
 
-# 🏆 Rich List
+# 🏆 Zənginlər Siyahısı (Azərbaycan adları və Dağları mövzulu sıralama)
 @app.on_message(filters.command("zenginler"))
 async def rich_list(_, message: Message):
     cursor = db.find().sort("balance", -1).limit(10)
     users = await cursor.to_list(length=10)
 
     if not users:
-        return await message.reply("Henüz hiç kullanıcı oynamadı.")
+        return await message.reply("Hələ heç bir istifadəçi oynamayıb.")
 
-    text = "💰 **Zenginler Listesi:**\n\n"
+    # Siyahı başlığına Azərbaycan dağ ruhu əlavə etdik
+    text = "🏔️ **Azərbaycanın Ən Zənginləri (Şahdağ Zirvəsi):**\n\n"
     for i, user in enumerate(users, start=1):
         try:
             tg_user = await app.get_users(user["_id"])
+            # Tural, Aytən, Elvin kimi adlar sistemdən çəkiləcək, lakin tapa bilməsə aşağıdakı default adlar işləyəcək
             name = tg_user.first_name
         except:
-            name = f"User-{user['_id']}"
-        text += f"{i}. {name} — {user['balance']} TL\n"
+            # Əgər istifadəçi tapılmasa default Azərbaycan adları (Nümunə üçün)
+            default_names = ["Anar", "Leyla", "Vüsal", "Nigar", "Tural", "Günay", "Elvin", "Fidan", "Murad", "Arzu"]
+            name = f"{random.choice(default_names)} (User-{user['_id']})"
+            
+        text += f"{i}. {name} — {user['balance']} AZN\n"
 
     await message.reply(text)
