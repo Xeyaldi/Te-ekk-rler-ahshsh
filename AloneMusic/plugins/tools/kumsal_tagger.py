@@ -1,11 +1,9 @@
 import random
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from AloneMusic import app  # Assuming this imports the 'app' instance from AloneMusic
-from config import LOGGER_ID, OWNER_ID  # Configuration for logging group and owner ID
-from AloneMusic.plugins.tools.oner import *  # Assuming this imports the necessary messages like mani, slapmessage, sarki1, etc.
-
-#  ~~~~~~~~~~~~~~~~ OYUN KOMUTLARI ~~~~~~~~~~~~~~~~
+from AloneMusic import app  
+from config import LOGGER_ID, OWNER_ID  
+from AloneMusic.plugins.tools.oner import * #  ~~~~~~~~~~~~~~~~ ᴏʏᴜɴ ᴋᴏᴍᴀɴᴅᴀʟᴀʀɪ ~~~~~~~~~~~~~~~~
 DICE_EMOJI = {
     "zar": "🎲",
     "dart": "🎯",
@@ -24,18 +22,18 @@ async def games(client, message: Message):
             message.chat.id,
             emoji=DICE_EMOJI[command],
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Tekrar Oyna ♻️", callback_data=command)]]
+                [[InlineKeyboardButton("ʏᴇɴɪᴅəɴ ᴏʏɴᴀ ♻️", callback_data=command)]]
             )
         )
     elif command == "para":
-        await message.reply("**Yazı 🪙**" if random.randint(0, 1) == 0 else "**Tura 🪙**")
+        await message.reply("<b>ʏᴀᴢɪ 🪙</b>" if random.randint(0, 1) == 0 else "<b>ᴘᴏᴢᴜ 🪙</b>")
     elif command == "mani":
         await message.reply_text(random.choice(mani))
     elif command == "saka":
-        await message.reply_text(f"**{random.choice(espri)}**")
+        await message.reply_text(f"<b>{random.choice(espri)}</b>")
 
 
-#  ~~~~~~~~~~~~~~~~ Tekrar Oyna Callback ~~~~~~~~~~~~~~~~
+#  ~~~~~~~~~~~~~~~~ ʏᴇɴɪᴅəɴ ᴏʏɴᴀ ᴄᴀʟʟʙᴀᴄᴋ ~~~~~~~~~~~~~~~~
 @app.on_callback_query(filters.regex("|".join(DICE_EMOJI.keys())))
 async def play_again(client, query: CallbackQuery):
     command = query.data
@@ -43,16 +41,16 @@ async def play_again(client, query: CallbackQuery):
         query.message.chat.id,
         emoji=DICE_EMOJI[command],
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Tekrar Oyna ♻️", callback_data=command)]]
+            [[InlineKeyboardButton("ʏᴇɴɪᴅəɴ ᴏʏɴᴀ ♻️", callback_data=command)]]
         )
     )
 
 
-#  ~~~~~~~~~~~~~~~~ Slap / Sille Komutu ~~~~~~~~~~~~~~~~
+#  ~~~~~~~~~~~~~~~~ şɪʟʟə ᴋᴏᴍᴀɴᴅᴀsɪ ~~~~~~~~~~~~~~~~
 @app.on_message(filters.command(["slap", "sille"]) & filters.group)
 async def slap(bot, message: Message):
     if not message.reply_to_message:
-        await message.reply_text("⚠️ Bir kullanıcıya cevap verin!")
+        await message.reply_text("⚠️ <b>ʙɪʀ ɪsᴛɪғᴀᴅəçɪʏə ᴄᴀᴠᴀʙ ᴠᴇʀɪɴ!</b>")
         return
 
     if message.reply_to_message.from_user.id == OWNER_ID:
@@ -73,21 +71,21 @@ async def slap(bot, message: Message):
     await bot.send_message(
         LOGGER_ID,
         f"""
-⚡ Kullanan: {atan_mesaj}  
-👤 Kullanıcı Id: {atan.id}  
-📱 Kullanılan Grup: {message.chat.title}  
-📍 Grup ID: {message.chat.id}  
-🔗 Grup Link: @{message.chat.username}  
-⚙️ Kullanılan Modül: Slap
+⚡ <b>ɪsᴛɪғᴀᴅə ᴇᴅəɴ:</b> {atan_mesaj}  
+👤 <b>ɪsᴛɪғᴀᴅəçɪ ɪᴅ:</b> <code>{atan.id}</code>  
+📱 <b>ǫʀᴜᴘ:</b> {message.chat.title}  
+📍 <b>ǫʀᴜᴘ ɪᴅ:</b> <code>{message.chat.id}</code>  
+🔗 <b>ǫʀᴜᴘ ʟɪɴᴋɪ:</b> @{message.chat.username}  
+⚙️ <b>ᴍᴏᴅᴜʟ:</b> şɪʟʟə
 """
     )
 
 
-#  ~~~~~~~~~~~~~~~~ Şarkı Öner Komutu ~~~~~~~~~~~~~~~~
+#  ~~~~~~~~~~~~~~~~ ᴍᴀʜɴɪ ᴍəsʟəʜəᴛɪ ~~~~~~~~~~~~~~~~
 @app.on_message(filters.command(["oner"]) & filters.group)
 async def oner(bot, message: Message):
     if not message.reply_to_message:
-        await message.reply_text("⚠️ Bir kullanıcıya cevap verin!")
+        await message.reply_text("⚠️ <b>ʙɪʀ ɪsᴛɪғᴀᴅəçɪʏə ᴄᴀᴠᴀʙ ᴠᴇʀɪɴ!</b>")
         return
 
     if message.reply_to_message.from_user.id == OWNER_ID:
@@ -108,11 +106,11 @@ async def oner(bot, message: Message):
     await bot.send_message(
         LOGGER_ID,
         f"""
-⚡ Kullanan: {atan_mesaj}  
-👤 Kullanıcı Id: {atan.id}  
-📱 Kullanılan Grup: {message.chat.title}  
-📍 Grup ID: {message.chat.id}  
-🔗 Grup Link: @{message.chat.username}  
-🎶 Kullanılan Modül: Şarkı Öneri
+⚡ <b>ɪsᴛɪғᴀᴅə ᴇᴅəɴ:</b> {atan_mesaj}  
+👤 <b>ɪsᴛɪғᴀᴅəçɪ ɪᴅ:</b> <code>{atan.id}</code>  
+📱 <b>ǫʀᴜᴘ:</b> {message.chat.title}  
+📍 <b>ǫʀᴜᴘ ɪᴅ:</b> <code>{message.chat.id}</code>  
+🔗 <b>ǫʀᴜᴘ ʟɪɴᴋɪ:</b> @{message.chat.username}  
+🎶 <b>ᴍᴏᴅᴜʟ:</b> ᴍᴀʜɴɪ ᴍəsʟəʜəᴛɪ
 """
     )
