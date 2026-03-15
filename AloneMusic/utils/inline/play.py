@@ -32,35 +32,36 @@ def stream_markup_timer(_, chat_id, played, dur):
     percentage = (played_sec / duration_sec) * 100
     umm = math.floor(percentage)
 
+    # Ürək işarəsi alov (🔥) ilə əvəz olundu
     if 0 < umm <= 10:
-        bar = "❥—————————"
+        bar = "🔥—————————"
     elif 10 < umm < 20:
-        bar = "—❥————————"
+        bar = "—🔥————————"
     elif 20 <= umm < 30:
-        bar = "——❥———————"
+        bar = "——🔥———————"
     elif 30 <= umm < 40:
-        bar = "———❥——————"
+        bar = "———🔥——————"
     elif 40 <= umm < 50:
-        bar = "————❥—————"
+        bar = "————🔥—————"
     elif 50 <= umm < 60:
-        bar = "—————❥————"
+        bar = "—————🔥————"
     elif 60 <= umm < 70:
-        bar = "——————❥———"
+        bar = "——————🔥———"
     elif 70 <= umm < 80:
-        bar = "———————❥——"
+        bar = "———————🔥——"
     elif 80 <= umm < 95:
-        bar = "————————❥—"
+        bar = "————————🔥—"
     else:
-        bar = "—————————❥"
+        bar = "—————————🔥"
 
     buttons = [
         [
             InlineKeyboardButton(
-                text="➕ 𝗕𝗲𝗻𝗶 𝗘𝗸𝗹𝗲 ",
+                text="👤 Məni Qrupa Əlavə Et",
                 url=f"https://t.me/{app.username}?startgroup=true",
             ),
             InlineKeyboardButton(
-                text="💌 𝗞𝗮𝗻𝗮𝗹",
+                text="📢 Rəsmi Kanal",
                 url=f"https://t.me/The_Team_Kumsal",
             ),
         ],
