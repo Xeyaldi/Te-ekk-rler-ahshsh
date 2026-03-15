@@ -12,28 +12,10 @@ from AloneMusic import app
 from config import LOGGER_ID
 from AloneMusic.plugins.tools.kumsal import *
 
-import asyncio
-import random
-from typing import Union
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from AloneMusic import app
-from config import LOGGER_ID
-from AloneMusic.plugins.tools.kumsal import *
-
-import asyncio
-import random
-from typing import Union
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from AloneMusic import app
-from config import LOGGER_ID
-from AloneMusic.plugins.tools.kumsal import *
-
-# Sohbet modu açık olan grupları tutuyor
+# Sohbet rejimi açıq olan qrupları saxlayır
 chatMode = []
 
-# Sohbet modunu açıp kapatan kullanıcıları takip etmek için
+# Sohbet rejimini açıb bağlayan istifadəçiləri izləmək üçün
 chat_mode_users = {}
 
 @app.on_message(filters.command("chatmode") & filters.group)
@@ -41,24 +23,24 @@ async def chat_mode_controller(bot, msg: Message):
     chat_id = msg.chat.id
     chat = msg.chat
     commands = msg.command
-    chat_mode_users[chat_id] = msg.from_user.id  # Komutu gönderen kullanıcıyı kaydet
+    chat_mode_users[chat_id] = msg.from_user.id  # Komandanı göndərən istifadəçini qeyd et
 
-    # LOG GROUP'a mesaj gönder
+    # LOG GROUP-a mesaj göndər
     await bot.send_message(
         LOGGER_ID,
         f"""
-#CHATMODE KULLANILDI 👤 Kullanan : {msg.from_user.first_name} 💥 Kullanıcı Id : {msg.from_user.id} 🪐 Kullanılan Grup : {chat.title} 💡 Grup ID : {chat.id} ◀️ Grup Link : @{chat.username}"""
+#CHATMODE İSTİFADƏ EDİLDİ 👤 İstifadə edən : {msg.from_user.first_name} 💥 İstifadəçi Id : {msg.from_user.id} 🪐 İstifadə edilən Qrup : {chat.title} 💡 Qrup ID : {chat.id} ◀️ Qrup Linki : @{chat.username}"""
     )
 
     if len(commands) == 1:
-        status = "✅ Açık" if chat_id in chatMode else "❌ Kapalı"
+        status = "✅ Açıq" if chat_id in chatMode else "❌ Bağlı"
         await msg.reply(
-            f"Durum : {status}\n\nSohbet modu kullanıcıların mesajlarına cevap verir.",
+            f"Status : {status}\n\nSohbet rejimi istifadəçilərin mesajlarına cavab verir.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("Aç", callback_data="on"),
-                        InlineKeyboardButton("Kapat", callback_data="off"),
+                        InlineKeyboardButton("Bağla", callback_data="off"),
                     ]
                 ]
             ),
@@ -69,19 +51,19 @@ async def chat_mode_callback(bot, cb: CallbackQuery):
     chat_id = cb.message.chat.id
     cmd = cb.data
 
-    # Artık yetki kontrolü yok, herkes değiştirebilir
+    # Artıq yetki yoxlanışı yoxdur, hər kəs dəyişə bilər
     if cmd == "on":
         if chat_id in chatMode:
-            await cb.edit_message_text("Sohbet modu zaten açık.")
+            await cb.edit_message_text("Sohbet rejimi onsuz da açıqdır.")
         else:
             chatMode.append(chat_id)
-            await cb.edit_message_text("Sohbet modu açıldı.")
+            await cb.edit_message_text("Sohbet rejimi açıldı.")
     elif cmd == "off":
         if chat_id not in chatMode:
-            await cb.edit_message_text("Sohbet modu zaten kapalı.")
+            await cb.edit_message_text("Sohbet rejimi onsuz da bağlıdır.")
         else:
             chatMode.remove(chat_id)
-            await cb.edit_message_text("Sohbet modu kapatıldı.")
+            await cb.edit_message_text("Sohbet rejimi bağlandı.")
 
     await cb.answer()
 
@@ -107,147 +89,146 @@ async def chatModeHandler(bot, msg: Message):
     reply = None
     text = lower(msg.text)
 
-    if text.startswith("ceyda"): # * Mesaj buse ile başlıyorsa cevap veriyoruz
+    if text.startswith("ceyda"): 
         reply = random.choice(ceyda)
         await asyncio.sleep(0.06)
 
-    elif kontrol(["selam", "slm", "sa", "selamlar", "selamm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["selam", "slm", "sa", "selamlar", "selamm"], text): 
         reply = random.choice(slm)
         await asyncio.sleep(0.06)   
-        #Bot chatmode komutları
-    elif kontrol(["sahip"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+        
+    elif kontrol(["sahip"], text): 
         reply = random.choice(sahip)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["naber"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["naber"], text): 
         reply = random.choice(naber)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["beri"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["beri"], text): 
         reply = random.choice(beri)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["nasılsın"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["nasılsın"], text): 
         reply = random.choice(nasılsın)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["tm","tamam","tmm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["tm","tamam","tmm"], text): 
         reply = random.choice(tm)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["sus","suuss","suss"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["sus","suuss","suss"], text): 
         reply = random.choice(sus)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["merhaba","mrb","meraba"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["merhaba","mrb","meraba"], text): 
         reply = random.choice(merhaba)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["yok"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["yok"], text): 
         reply = random.choice(yok)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["dur"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["dur"], text): 
         reply = random.choice(dur)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["bot", "botu"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["bot", "botu"], text): 
         reply = random.choice(bott)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["napıyorsun"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["napıyorsun"], text): 
         reply = random.choice(napıyorsun)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["takılıyorum","takılıyom"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["takılıyorum","takılıyom"], text): 
         reply = random.choice(takılıyorum)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["he"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["he"], text): 
         reply = random.choice(he)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["hayır"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["hayır"], text): 
         reply = random.choice(hayır)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["tm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["tm"], text): 
         reply = random.choice(tm)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["nerdesin"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["nerdesin"], text): 
         reply = random.choice(nerdesin)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["özledim"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["özledim"], text): 
         reply = random.choice(özledim)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["bekle"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["bekle"], text): 
         reply = random.choice(bekle)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["mustafa"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["mustafa"], text): 
         reply = random.choice(mustafa)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["günaydın"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["günaydın"], text): 
         reply = random.choice(günaydın)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["ragnar"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["ragnar"], text): 
         reply = random.choice(ragnar)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["konuşalım","konusalım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["konuşalım","konusalım"], text): 
         reply = random.choice(konuşalım)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["saat"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["saat"], text): 
         reply = random.choice(saat)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["geceler"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["geceler"], text): 
         reply = random.choice(geceler)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["şaka"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["şaka"], text): 
         reply = random.choice(şaka)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["kimsin"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["kimsin"], text): 
         reply = random.choice(kimsin)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["günler"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["günler"], text): 
         reply = random.choice(günler)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["tanımıyorum"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["tanımıyorum"], text): 
         reply = random.choice(tanımıyorum)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["konuşma"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["konuşma"], text): 
         reply = random.choice(konuşma)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["teşekkürler","tesekkürler","tşkr"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["teşekkürler","tesekkürler","tşkr"], text): 
         reply = random.choice(teşekkürler)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["eyvallah","eywl"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["eyvallah","eywl"], text): 
         reply = random.choice(eyvallah)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["sağol"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["sağol"], text): 
         reply = random.choice(sağol)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["amk","aq","mg","mk"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["amk","aq","mg","mk"], text): 
         reply = random.choice(amk)
-        await asyncio.sleep(0.06)        
-
-    elif kontrol(["yoruldum"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+        await asyncio.sleep(0.06)
+        elif kontrol(["yoruldum"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(yoruldum)
         await asyncio.sleep(0.06)         
 
@@ -255,7 +236,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(yaş)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["eşşek","eşek"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["eşşək","eşek"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(eşek)
         await asyncio.sleep(0.06)  
 
@@ -263,63 +244,63 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(canım)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["aşkım","askım","ask"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["aşkım","askım","eşqim","esqim"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(aşkım)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["uyu"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["yat","uyu"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(uyu)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["nereye","nere"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["hara","haraya","nereye"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(nereye)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["naber"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["necəsən","necesen","naber"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(naber)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["küstüm","küsüm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["küsdüm","küsüm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(küstüm)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["peki"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["yaxşı","yaxsi","peki"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(peki)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["ne","nee","neee","ney"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["nə","ne","nee","ney"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(ne)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["takım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["komanda","takım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(takım)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["benimle","bnmle"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["mənimlə","benimle","bnmle"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(benimle)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["seviyormusun","seviyomusun"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["sevirsen","sevirsenmi","seviyormusun"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(seviyormusun)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["nediyon"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["nədeyirsən","nediyon"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(nediyon)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["özür"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["üzr","özür"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(özür)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["niye"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["niyə","niye"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(niye)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["bilmiyorum","bilmiyom","bilmiyos"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["bilmirəm","bilmiram","bilmiyorum"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(bilmiyorum)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["küsme"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["küsmə","kusme"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(küsme)
         await asyncio.sleep(0.06)         
 
@@ -327,7 +308,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(cihan)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["nerelisin"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["haralısan","nerelisin"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(nerelisin)
         await asyncio.sleep(0.06)  
 
@@ -335,27 +316,27 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(sevgilin)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["olur"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["olar","olur"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(olur)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["olmas","olmaz"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["olmaz","olmas"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(olmaz)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["nasıl"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["necə","nece","nasıl"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(nasıl)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["hayatım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["həyatım","hayatım"], text): # # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(hayatım)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["cus"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["çüş","cus"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(cus)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["vallaha","valla","vallahi"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["vallah","vallaha","valla"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(vallaha)
         await asyncio.sleep(0.06)   
 
@@ -363,7 +344,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(yo)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["hayırdır"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["xeyirdir","hayırdır"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(hayırdır)
         await asyncio.sleep(0.06)        
 
@@ -371,7 +352,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(of)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["aynen"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["eynən","aynen"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(aynen)
         await asyncio.sleep(0.06)          
 
@@ -387,7 +368,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(yaren)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["evet"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["bəli","hə","evet"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(evet)
         await asyncio.sleep(0.06)        
 
@@ -399,7 +380,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(hıhım)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["git"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["get","git"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(git)
         await asyncio.sleep(0.06)  
 
@@ -407,7 +388,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(komedi)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["knka","kanka"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["kanka","knka"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(knka)
         await asyncio.sleep(0.06)   
 
@@ -415,11 +396,11 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(ban)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["sen"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["sən","sen"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(sen)
         await asyncio.sleep(0.06)         
 
-    elif kontrol(["hiç"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["heç","hic"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(hiç)
         await asyncio.sleep(0.06)          
 
@@ -427,11 +408,11 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(aç)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["barışalım","batısalım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["barışaq","barışalım"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(barışalım)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["şimdi"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["indi","şimdi"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(şimdi)
         await asyncio.sleep(0.06)   
 
@@ -439,7 +420,7 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(varoş)
         await asyncio.sleep(0.06)        
 
-    elif kontrol(["arkadaş","arkadas"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["dost","arkadaş","arkadas"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(arkadaş)
         await asyncio.sleep(0.06)         
 
@@ -447,15 +428,15 @@ async def chatModeHandler(bot, msg: Message):
         reply = random.choice(sus)
         await asyncio.sleep(0.06)          
 
-    elif kontrol(["üzüldüm","üşüldüm"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["üzüldüm","pis oldum"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(üzüldüm)
         await asyncio.sleep(0.06)  
 
-    elif kontrol(["kötü"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["pis","kötü"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(kötü)
         await asyncio.sleep(0.06)   
 
-    elif kontrol(["akşamlar"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
+    elif kontrol(["axşamlar","akşamlar"], text): # * Selam yazısı metnin içinde varsa cevap veriyoruz
         reply = random.choice(akşamlar)
         await asyncio.sleep(0.06)   
 
