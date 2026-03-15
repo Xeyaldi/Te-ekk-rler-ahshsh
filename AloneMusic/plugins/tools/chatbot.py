@@ -46,7 +46,7 @@ async def chat_mode_controller(bot, msg: Message):
             ),
         )
 
- @app.on_callback_query(filters.regex("^(on|off)$"))
+@app.on_callback_query(filters.regex("^(on|off)$"))
 async def chat_mode_callback(bot, cb: CallbackQuery):
     chat_id = cb.message.chat.id
     cmd = cb.data
