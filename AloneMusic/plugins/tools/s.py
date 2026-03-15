@@ -10,13 +10,13 @@ http = AsyncClient()
 async def make_sticker(_, message: Message):
     replied = message.reply_to_message
     if not replied:
-        return await message.reply("⛔ Lütfen bir mesaja yanıt verin.")
+        return await message.reply("⛔ Zəhmət olmasa bir mesaja cavab verin.")
 
     text = replied.text or replied.caption
     if not text:
-        return await message.reply("⛔ Çıkartma yapılacak metin bulunamadı.")
+        return await message.reply("⛔ Stiker ediləcək mətn tapılmadı.")
 
-    await message.reply("🛠️ Çıkartma hazırlanıyor...")
+    await message.reply("🛠️ Stiker hazırlanır...")
 
     data = {
         "type": "quote",
@@ -38,4 +38,4 @@ async def make_sticker(_, message: Message):
         img.name = "sticker.webp"
         await message.reply_sticker(img)
     except Exception as e:
-        await message.reply(f"❌ Hata: {e}")
+        await message.reply(f"❌ Xəta: {e}")
