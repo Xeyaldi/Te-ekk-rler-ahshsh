@@ -342,7 +342,7 @@ class Call(PyTgCalls):
                         [
                             [
                                 InlineKeyboardButton(
-                                    "✙ ʌᴅᴅ ϻє вᴧʙʏ ✙",
+                                    "✙➕ Məɴɪ ǫʀᴜᴘᴜɴᴀ əʟᴀᴠə ᴇᴛ ✙",
                                     url=f"https://t.me/{app.username}?startgroup=true",
                                 ),
                                 InlineKeyboardButton(
@@ -367,7 +367,7 @@ class Call(PyTgCalls):
                         [
                             [
                                 InlineKeyboardButton(
-                                    "✙ ʌᴅᴅ ϻє вᴧʙʏ ✙",
+                                    "✙ ➕ Məɴɪ ǫʀᴜᴘᴜɴᴀ əʟᴀᴠə ᴇᴛ ✙",
                                     url=f"https://t.me/{app.username}?startgroup=true",
                                 ),
                                 InlineKeyboardButton(
@@ -378,7 +378,7 @@ class Call(PyTgCalls):
                     )
                     await app.send_message(
                         chat_id,
-                        "🎵 𝐓ʜᴇ 𝐐ᴜᴇᴜᴇ 𝐇ᴀs 𝐅ɪɴɪsʜᴇᴅ. 𝐔sᴇ /play 𝐓ᴏ 𝐀ᴅᴅ 𝐌ᴏʀᴇ 𝐒ᴏɴɢs!!",
+                        "🎵 𝐍öᴠʙə 𝐁ɪᴛᴅɪ. 𝐃ᴀʜᴀ Çᴏx 𝐌ᴀʜɴı əʟᴀᴠə 𝐄ᴅᴍəᴋ üçüɴ /play 𝐈sᴛɪғᴀᴅə 𝐄ᴅɪɴ!!",
                         reply_markup=buttons,
                     )
                 except:
