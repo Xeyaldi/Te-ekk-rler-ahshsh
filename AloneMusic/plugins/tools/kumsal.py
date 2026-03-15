@@ -1,7 +1,7 @@
 import random
 
 # Ürəklər
-galp = (
+ürek = (
     "❤️", "❣️", "♥️", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "❤️‍🔥",
 )
 
@@ -24,8 +24,8 @@ salam = (
     "**Salammm**",
 )
 
-# Xəyal (Ceyda yerinə)
-xeyal = (
+# Lina 
+Lina = (
     "**Bəli dostum?** 🕵️‍♂️",
     "**Məni çağırdın?** ✨",
     "**Bəliii?** ❣️",
@@ -51,7 +51,7 @@ sahib = (
 )
 
 # Necəsən
-neceysen = (
+necesen = (
     "**Yaxşıyam, sən necəsən?** 😊",
     "**Yaxşı, səndəən?**",
     "**Yaxşıyam canım, bəs sən?** ✨",
