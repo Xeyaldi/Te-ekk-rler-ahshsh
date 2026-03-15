@@ -34,7 +34,7 @@ LOGGER_ID = int(getenv("LOGGER_ID", 0))
 
 DEBUG_IGNORE_LOG = True
 # Get this value from  on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", 8106551502))
+OWNER_ID = int(getenv("OWNER_ID", 8371395083))
 
 ## Fill these variables if you're deploying on heroku.
 # Your heroku app name
@@ -44,15 +44,15 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/KumsalTR63/KumsalMeldi",
+    "https://t.me/Nunum_tag_bot",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/The_Team_Kumsal")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/mervemx")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/HT_bots")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ht_bots_chat")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", None))
@@ -91,22 +91,22 @@ confirmer = {}
 
 START_IMG_URL = getenv(
     "START_IMG_URL",
-    "https://files.catbox.moe/p3tvdc.jpg",
+    "https://files.catbox.moe/rq6z64.jpg",
 )
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
-    "https://files.catbox.moe/p3tvdc.jpg",
+    "https://files.catbox.moe/r5udk0.jpg",
 )
-PLAYLIST_IMG_URL = "https://files.catbox.moe/p3tvdc.jpg"
-STATS_IMG_URL = "https://files.catbox.moe/p3tvdc.jpg"
-TELEGRAM_AUDIO_URL = "https://files.catbox.moe/p3tvdc.jpg"
-TELEGRAM_VIDEO_URL = "https://files.catbox.moe/p3tvdc.jpg"
-STREAM_IMG_URL = "https://files.catbox.moe/p3tvdc.jpg"
-SOUNCLOUD_IMG_URL = "https://files.catbox.moe/34xlvu.jpg"
-YOUTUBE_IMG_URL = "https://files.catbox.moe/34xlvu.jpg"
-SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/34xlvu.jpg"
-SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/34xlvu.jpg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/34xlvu.jpg"
+PLAYLIST_IMG_URL = "https://files.catbox.moe/looaih.jpg"
+STATS_IMG_URL = "https://files.catbox.moe/uwe6xc.jpg"
+TELEGRAM_AUDIO_URL = "https://files.catbox.moe/kvfeip.jpg"
+TELEGRAM_VIDEO_URL = "https://i.postimg.cc/mDTTvtxS/20260214-163714.jpg"
+STREAM_IMG_URL = "https://files.catbox.moe/kvfeip.jpg"
+SOUNCLOUD_IMG_URL = "https://files.catbox.moe/uwe6xc.jpg"
+YOUTUBE_IMG_URL = "https://i.postimg.cc/mDTTvtxS/20260214-163714.jpg"
+SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/bbvj7f.jpg"
+SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/bbvj7f.jpg"
+SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/bbvj7f.jpg"
 
 
 def time_to_seconds(time):
