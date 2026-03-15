@@ -57,12 +57,12 @@ def stream_markup_timer(_, chat_id, played, dur):
     buttons = [
         [
             InlineKeyboardButton(
-                text="👤 Məni Qrupa Əlavə Et",
+                text="➕ ᴍəɴɪ ǫʀᴜᴘᴀ əʟᴀᴠə ᴇᴛ",
                 url=f"https://t.me/{app.username}?startgroup=true",
             ),
             InlineKeyboardButton(
-                text="📢 Rəsmi Kanal",
-                url=f"https://t.me/The_Team_Kumsal",
+                text="📢 ʀəsᴍɪ ᴋᴀɴᴀʟ",
+                url="https://t.me/Ht_bots",
             ),
         ],
         [
@@ -72,9 +72,9 @@ def stream_markup_timer(_, chat_id, played, dur):
             ),
         ],
         [
-            InlineKeyboardButton(text="⏭️", callback_data=f"ADMIN Skip|{chat_id}"),
+            InlineKeyboardButton(text="‣‣", callback_data=f"ADMIN Skip|{chat_id}"),
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
-            InlineKeyboardButton(text="⏹️", callback_data=f"ADMIN Stop|{chat_id}"),
+            InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
     ]
     return buttons
