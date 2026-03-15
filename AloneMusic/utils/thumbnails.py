@@ -40,16 +40,16 @@ async def get_thumb(videoid):
                 title = re.sub(r"\W+", " ", title)
                 title = title.title()
             except:
-                title = "Unsupported Title"
+                title = "Dəstəklənməyən Başlıq"
             try:
                 duration = result["duration"]
             except:
-                duration = "Unknown"
+                duration = "Bilinmir"
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
             try:
                 views = result["viewCount"]["short"]
             except:
-                views = "Unknown Views"
+                views = "Bilinmir"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -146,7 +146,8 @@ async def get_thumb(videoid):
             stroke_fill="black",
         )
 
-        stats_text = f"YouTube : {views} | süre : {duration} | solist : @acelyamuaicbot"
+        # Məlumat hissəsinin Azərbaycan dilinə çevrilməsi
+        stats_text = f"Baxış : {views} | Müddət : {duration} | İfaçı : @acelyamuaicbot"
         w_stats = get_text_width(stats_text, font_details)
         draw.text(
             ((1280 - w_stats) / 2, text_y_pos + 70),
@@ -157,7 +158,8 @@ async def get_thumb(videoid):
             stroke_fill="black",
         )
 
-        text_classy = "Kumsal Müzik"
+        # Kumsal Music -> Luna Music dəyişimi
+        text_classy = "Luna Music"
         w_classy = get_text_width(text_classy, font_watermark)
 
         draw.text(
@@ -171,7 +173,7 @@ async def get_thumb(videoid):
 
         draw.text(
             (30, 680),
-            text="kumsal Müzik",
+            text="Luna Music",
             fill="white",
             font=font_watermark,
             stroke_width=1,
